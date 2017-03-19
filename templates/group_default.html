@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html metal:use-macro="templates/base/macros/html">
+  <body metal:fill-slot="body" >
+  <h1>Miniseite zu:  <span tal:content="string: ${g/ebene} ${g/name}"></span> in <span tal:content="g/ort"></span></h1>
+  <ul>
+  <li tal:define="p context/parent/IDX/0">Übergeordnete Gruppe: <a tal:content="string: ${p/ebene} ${p/name}" tal:attributes="href string:/${p/id}/" ></a></li>
+  <li tal:condition="context/group/KALENDER/0/Verband">Dachverband: <a tal:replace="context/group/KALENDER/0/Verband" ></a></li>
+  <li tal:condition="g/url">Hauptwebseite: <a tal:attributes="href g/url" tal:content="g/url"></a></li>
+  <li tal:condition="context/children/IDX">Untergeordnete Gruppen:
+    <ul>
+    <li tal:repeat="c context/children/IDX"><a tal:content="string: ${c/ebene} ${c/name}" tal:attributes="href string:/${c/id}/" ></a></li>
+  </ul></li>
+  </ul>
+ <a tal:attributes="href string:/${g/id}/events">Kalender</a>
+  </body>
+</html>

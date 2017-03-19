@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html metal:use-macro="templates/base/macros/html">
+  <body metal:fill-slot="body">
+  <h2>Kalender</h2>
+  <table  class="ui striped table">
+  <thead>
+  <tr>
+    <th>Datum
+    </th>
+    <th>Info
+    </th>
+    <th>Stufen
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr tal:repeat="event context/events/EVENT"><td>
+        <div tal:replace="event/StartLocal">start
+        </div>
+        <tal:block tal:condition="event/End|nothing"><br />bis<br />
+          <div tal:replace="event/EndLocal">end
+          </div>
+        </tal:block>
+        </td><td>
+        <div tal:replace="event/Title">title
+        </div>
+        <tal:block tal:condition="event/Description|nothing" > <br /> 
+          <small class="description" tal:content="structure event/DescriptionMD"> description</small>
+        </tal:block></td><td>
+        <div tal:repeat="section event/Stufen" tal:content="section/bezeichnung" tal:attributes="style string: text-decoration-line: underline;; text-decoration-color: ${section/farbe};;"> 
+          
+        </div></td>
+    </tr>
+	</tbody>
+</table>
+  </body>
+</html>
